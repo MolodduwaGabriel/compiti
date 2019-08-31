@@ -1,0 +1,75 @@
+<h1>{{title}}</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<button (click)="onLogin()" class="btn btn-secondary">Login</button>
+<button (click)="onRegistrazione()" class="btn btn-secondary">Registrazione</button>
+<button (click)="onLogout()" class="btn btn-danger">Logout</button>
+
+<div class="row">
+  <div class="col-sm-6">
+     <div *ngIf = "comp">
+          <form [formGroup] = "loginForm"  (ngSubmit)="onContrLogin()" class="jumbotron">
+            Username: <input type="text" [formControl]="loginForm.controls['username']" class="form-control">
+            <div *ngIf="!loginForm.controls['username'].valid" class="alert alert-danger">Username non è valido </div>
+            <div *ngIf="loginForm.controls['username'].hasError('required')" class="alert alert-danger">Username è richiesto</div>
+
+          Password: <input type="password" [formControl]="loginForm.controls['password']" class="form-control">
+            <div *ngIf="!loginForm.controls['password'].valid" class="alert alert-danger">Password non è valido </div>
+            <div *ngIf="loginForm.controls['password'].hasError('required')" class="alert alert-danger">Password è richiesto</div>
+
+            <button type='submit' class="btn btn-primary">Invio</button>
+        </form>
+      </div>
+
+     <div *ngIf = "reg">
+        <form [formGroup] = "myForm"  (ngSubmit)="onSubmit(myForm.value)" class="jumbotron">
+          Username: <input type="text" [formControl]="myForm.controls['username']" class="form-control">
+          <div *ngIf="!myForm.controls['username'].valid" class="alert alert-danger">Username non è valido </div>
+          <div *ngIf="myForm.controls['username'].hasError('required')" class="alert alert-danger">Username è richiesto</div>
+
+          Nome: <input type="text" [formControl]="myForm.controls['nome']" class="form-control">
+          <div *ngIf="!myForm.controls['nome'].valid" class="alert alert-danger">Nome non è valido </div>
+          <div *ngIf="myForm.controls['nome'].hasError('required')" class="alert alert-danger">Nome è richiesto</div>
+
+          Cognome: <input type="text" [formControl]="myForm.controls['cognome']" class="form-control">
+          <div *ngIf="!myForm.controls['cognome'].valid" class="alert alert-danger">Cognome non è valido </div>
+          <div *ngIf="myForm.controls['cognome'].hasError('required')" class="alert alert-danger">Cognome è richiesto</div>
+
+          Email: <input type="email" [formControl]="myForm.controls['email']" class="form-control">
+          <div *ngIf="!myForm.controls['email'].valid" class="alert alert-danger">Email non è valido </div>
+          <div *ngIf="myForm.controls['email'].hasError('required')" class="alert alert-danger">Email è richiesto</div>
+
+          Password: <input type="password" [formControl]="myForm.controls['password']" class="form-control">
+          <div *ngIf="!myForm.controls['password'].valid" class="alert alert-danger">Password non è valido </div>
+          <div *ngIf="myForm.controls['password'].hasError('required')" class="alert alert-danger">Password è richiesto</div>
+
+          <button type='submit' class="btn btn-primary">Registrati</button>
+      </form>
+</div>
+</div>
+
+<div class="col-sm-6">
+  <ul class="utenti">
+    <li *ngFor="let u of utente"
+      [class.selected]="u === selectedUtenti"
+      (click)="onSelect(u)">
+      <span class="badge">Username: </span>
+      <span class="ins">{{u.username}}</span>
+    </li>
+  </ul>
+
+
+<app-utenti-dettagli *ngIf="selectedUtenti" [v]="selectedUtenti"></app-utenti-dettagli>
+
+</div>
+</div>
+ <div *ngIf = "ved" >
+    <app-commenti [f]="utenteLog"></app-commenti>
+    <app-new-object [f]="utenteLog"></app-new-object>
+    <app-user-objects [f]="utenteLog"></app-user-objects>
+
+      <app-objects-list[f]="utenteLog"></app-objects-list>
+      <app-new-post [f]="utenteLog"></app-new-post>
+
+ </div>
